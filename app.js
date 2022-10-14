@@ -196,10 +196,10 @@ function clickHandler(e){
 
         let isPalindrome = checkPalindromeForAllDateFormats(date);
         if(isPalindrome){
-            output.innerText = "Yay, your birthday is a palindrome."
+            output.innerText = "🚀 Yay, your birthday is a palindrome."
         } else {
             let [count, nextDate] = getNextPalindromeDate(date);
-            output.innerText = `Sorry, your birthday is not a palindrome. You missed is by ${count} days and the date is ${nextDate.day}-${nextDate.month}-${nextDate.year}`
+            output.innerText = `😖 Sorry, your birthday is not a palindrome.\n You missed it by ${count} days 😔 and the date is ${nextDate.day}-${nextDate.month}-${nextDate.year}`
         }
     }
 }
