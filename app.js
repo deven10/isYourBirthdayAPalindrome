@@ -109,11 +109,100 @@ function getNextDate(date){
     };
 }
 
-let date = {
-    day: 31,
-    month: 12,
-    year: 2020
+function getNextPalindromeDate(date){
+    let count = 0;
+    let nextDate = getNextDate(date);
+
+    while(1){
+        count++;
+        let isPalindrome = checkPalindromeForAllDateFormats(nextDate);
+        if(isPalindrome){
+            break;
+        } 
+        nextDate = getNextDate(nextDate);
+    }
+    return [count, nextDate];
 }
 
-console.log(getNextDate(date));
+// function getPreviousDate(date){
+//     let day = date.day - 1; //30 12 2020
+//     console.log(day, "<= initial");
+//     let month = date.month;
+//     let year = date.year;
+
+//     let daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
+
+//     if(month == 2){
+//         if(isLeapYear(year)){
+//             if(day > 29){
+//                 day = day - 1;
+//                 console.log(day, "<= if leap year -1 day");
+//             } 
+//         }else {
+//                 if(day > 28){
+//                    day = day - 1; 
+//                    console.log(day, "<= if not a leap year still -1 day");
+//                 }
+//             }
+//     }   else {
+//             if(day > daysInMonth[month - 1]){
+//                 day = day - 1;
+//                 // month--;
+//             }
+//         }
+//         if(month > 12){
+//             day = 31;
+//             month--;
+//             // year;
+//         }
+
+//     return {
+//         day: day,
+//         month:month,
+//         year:year
+//     };
+// }
+
+// function getPreviousPalindromeDate(date){
+//     let count = 0;
+//     let nextDate = getPreviousDate(date);
+
+//     while(1){
+//         count++;
+//         let isPalindrome = checkPalindromeForAllDateFormats(nextDate);
+//         if(isPalindrome){
+//             break;
+//         } 
+//         nextDate = getPreviousDate(nextDate);
+//     }
+//     return [count, nextDate];
+// }
+
+const bday = document.querySelector("#birthdate");
+const btn = document.querySelector("#btn");
+const output = document.querySelector("#output");
+
+function clickHandler(e){
+    let birthDateStr = bday.value;
+
+    if(birthDateStr !== ""){
+        let listOfDate = birthDateStr.split("-");
+
+        let date = {
+            day: Number(listOfDate[2]),
+            month: Number(listOfDate[1]),
+            year: Number(listOfDate[0])
+        };
+
+        let isPalindrome = checkPalindromeForAllDateFormats(date);
+        if(isPalindrome){
+            output.innerText = "Yay, your birthday is a palindrome."
+        } else {
+            let [count, nextDate] = getNextPalindromeDate(date);
+            output.innerText = `Sorry, your birthday is not a palindrome. You missed is by ${count} days and the date is ${nextDate.day}-${nextDate.month}-${nextDate.year}`
+        }
+    }
+}
+
+btn.addEventListener("click", clickHandler);
 
